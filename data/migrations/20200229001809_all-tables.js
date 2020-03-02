@@ -8,10 +8,7 @@ exports.up = async function(knex) {
       .unique();
     tbl.string("email", 128).notNullable();
     tbl.string("password", 128).notNullable();
-    tbl
-      .boolean("creator")
-      .notNullable()
-      .defaultTo(false);
+    tbl.boolean("creator").notNullable();
   });
 
   // HOW-TOS
@@ -47,12 +44,12 @@ exports.up = async function(knex) {
       .references("id")
       .inTable("users");
     tbl
-      .integer("how-to_id")
+      .integer("how_to_id")
       .notNullable()
       .unsigned()
       .references("id")
       .inTable("how-tos");
-    tbl.primary(["user_id", "how-to_id"]);
+    tbl.primary(["user_id", "how_to_id"]);
   });
 
   // DISLIKES
@@ -64,18 +61,18 @@ exports.up = async function(knex) {
       .references("id")
       .inTable("users");
     tbl
-      .integer("how-to_id")
+      .integer("how_to_id")
       .notNullable()
       .unsigned()
       .references("id")
       .inTable("how-tos");
-    tbl.primary(["user_id", "how-to_id"]);
+    tbl.primary(["user_id", "how_to_id"]);
   });
 };
 
-exports.down = function(knex) {
-    await knex.schema.dropTableIfExists("dislikes");
-    await knex.schema.dropTableIfExists("likes");
-    await knex.schema.dropTableIfExists("how-tos");
-    await knex.schema.dropTableIfExists("users");
+exports.down = async function(knex) {
+  await knex.schema.dropTableIfExists("dislikes");
+  await knex.schema.dropTableIfExists("likes");
+  await knex.schema.dropTableIfExists("how-tos");
+  await knex.schema.dropTableIfExists("users");
 };
