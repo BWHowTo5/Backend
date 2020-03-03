@@ -35,7 +35,8 @@ exports.seed = async function(knex) {
     },
     {
       id: 4,
-      title:
+      title: "Test How-To #4",
+      summary:
         "Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse sed lectus vel ligula eleifend luctus. Integer ultricies tincidunt varius.",
       content:
         "Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse sed lectus vel ligula eleifend luctus. Integer ultricies tincidunt varius. Etiam scelerisque neque vel libero pretium, quis lacinia arcu porta. Fusce euismod enim arcu, sit amet fringilla elit porttitor vitae. Etiam dignissim, eros ac consequat fermentum, ante libero imperdiet odio, id convallis purus justo vel enim. Cras lacinia massa sit amet nulla aliquet, at tincidunt massa efficitur. Praesent placerat eros id tellus facilisis sollicitudin. Duis sagittis, ligula quis tincidunt maximus, arcu ex convallis ipsum, ut suscipit eros nisi a diam. Nunc rhoncus eros et nunc vehicula gravida. Maecenas sed imperdiet orci, vitae scelerisque leo. Nullam nec eros ex. Proin eget arcu a lacus accumsan pellentesque. Nullam ut felis tortor.",
