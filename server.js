@@ -1,6 +1,8 @@
 const express = require("express");
 const server = express();
 
+const HowTosRouter = require("./routes/howTosRouter.js");
+
 server.get("/", (req, res) => {
   res.status(200).send(`
     <div>
@@ -8,5 +10,7 @@ server.get("/", (req, res) => {
     </div>
     `);
 });
+
+server.use("/api/how-tos", HowTosRouter);
 
 module.exports = server;
