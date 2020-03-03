@@ -1,4 +1,5 @@
 const db = require("../dbConfig.js");
+const bcrypt = require("bcryptjs");
 
 // GET all users
 const find = () => {
@@ -6,7 +7,7 @@ const find = () => {
 };
 
 // GET user by filter
-const findById = (filter) => {
+const findBy = (filter) => {
   return db("users")
     .where(filter)
     .first();
@@ -14,13 +15,23 @@ const findById = (filter) => {
 
 // POST new user
 const add = async (user) => {
+  user.password = await bcrypt.hash(user.password, 13);
+
   const [id] = await db("users").insert(user);
 
-  return findById(id);
+  return findBy(id);
 };
 
 // UPDATE a user
-const update = (filter, changes) => {
+const update = async (filter, changes) => {
+  const user = findBy(filter);
+  const { oldPassword } = user;
+  const validatedPassword = bcrypt.compareSync(oldPassword, changes.password);
+
+  if (!validatedPassword) {
+    changes.password = await bcrypt.hash(changes.password, 13);
+  }
+
   return db("users")
     .where(filter)
     .update(changes);
@@ -33,4 +44,4 @@ const remove = (filter) => {
     .del();
 };
 
-module.exports = { find, findById, add, update, remove };
+module.exports = { find, findBy, add, update, remove };

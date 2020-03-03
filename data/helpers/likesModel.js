@@ -1,7 +1,7 @@
 const db = require("../dbConfig.js");
 
 // GET likes by filter
-const findById = (filter) => {
+const findBy = (filter) => {
   return db("likes")
     .where(filter)
     .first();
@@ -11,7 +11,7 @@ const findById = (filter) => {
 const add = async (like) => {
   const [id] = await db("likes").insert(like);
 
-  return findById(id);
+  return findBy(id);
 };
 
 // REMOVE a like
@@ -21,4 +21,4 @@ const remove = (filter) => {
     .del();
 };
 
-module.exports = { findById, add, remove };
+module.exports = { findBy, add, remove };

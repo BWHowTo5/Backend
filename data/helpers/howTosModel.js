@@ -6,7 +6,7 @@ const find = () => {
 };
 
 // GET How-To by filter
-const findById = (filter) => {
+const findBy = (filter) => {
   return db("how-tos")
     .where(filter)
     .first();
@@ -16,7 +16,7 @@ const findById = (filter) => {
 const add = async (howTo) => {
   const [id] = await db("how-tos").insert(howTo);
 
-  return findById(id);
+  return findBy(id);
 };
 
 // UPDATE a How-To
@@ -33,4 +33,4 @@ const remove = (filter) => {
     .del();
 };
 
-module.exports = { find, findById, add, update, remove };
+module.exports = { find, findBy, add, update, remove };
