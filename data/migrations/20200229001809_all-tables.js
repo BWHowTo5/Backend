@@ -19,12 +19,10 @@ exports.up = async function(knex) {
     tbl.text("content", 5000).notNullable();
     tbl
       .integer("likes")
-      .notNullable()
       .unsigned()
       .defaultTo(0);
     tbl
       .integer("dislikes")
-      .notNullable()
       .unsigned()
       .defaultTo(0);
     tbl
