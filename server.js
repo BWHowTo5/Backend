@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const session = require("express-session");
 const KnexSessionStore = require("connect-session-knex")(session);
 
@@ -13,6 +14,7 @@ const { restricted } = require("./middleware/usersMiddleware.js");
 
 const server = express();
 
+server.use(cors());
 server.use(express.json());
 
 server.use(
