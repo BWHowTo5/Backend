@@ -7,6 +7,7 @@ const dbConfig = require("./data/dbConfig.js");
 const HowTosRouter = require("./routes/howTosRouter.js");
 const UsersRouter = require("./routes/usersRouter.js");
 const LikesRouter = require("./routes/likesRouter.js");
+const DislikesRouter = require("./routes/dislikesRouter.js");
 
 const { restricted } = require("./middleware/usersMiddleware.js");
 
@@ -40,5 +41,6 @@ server.get("/", (req, res) => {
 server.use("/api/users", UsersRouter);
 server.use("/api/how-tos", restricted, HowTosRouter);
 server.use("/api/likes", restricted, LikesRouter);
+server.use("/api/dislikes", restricted, DislikesRouter);
 
 module.exports = server;

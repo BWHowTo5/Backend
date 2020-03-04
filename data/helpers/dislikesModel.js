@@ -1,24 +1,27 @@
 const db = require("../dbConfig.js");
+const HowTos = require("./howTosModel.js");
 
-// GET dislikes by filter
+// GET likes by filter
 const findBy = (filter) => {
   return db("dislikes")
     .where(filter)
     .first();
 };
 
-// POST new dislike
+// POST new like
 const add = async (dislike) => {
-  const [id] = await db("dislikes").insert(dislike);
+  await db("dislikes").insert(dislike);
 
-  return findBy(id);
+  return HowTos.findBy({ id: dislike.how_to_id });
 };
 
-// REMOVE a dislike
-const remove = (filter) => {
-  return db("dislikes")
+// REMOVE a like
+const remove = async (filter) => {
+  await db("dislikes")
     .where(filter)
     .del();
+
+  return HowTos.findBy({ id: filter.how_to_id });
 };
 
 module.exports = { findBy, add, remove };
