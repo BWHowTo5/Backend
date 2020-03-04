@@ -1,16 +1,5 @@
 const HowTos = require("../data/helpers/howTosModel.js");
 
-const restricted = (req, res, next) => {
-  if (!req.session || !req.session.user) {
-    res
-      .status(401)
-      .json({ message: "You are not authorized to complete this action." });
-  } else {
-    next();
-  }
-};
-
-// HOW-TO
 const validateHowToPost = (req, res, next) => {
   if (!req.body.title || !req.body.content || !req.body.user_id) {
     res
@@ -66,7 +55,6 @@ const validateHowToId = (req, res, next) => {
 };
 
 module.exports = {
-  restricted,
   validateHowToPost,
   validateHowToPut,
   validateHowToId

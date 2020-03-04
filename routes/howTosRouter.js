@@ -7,7 +7,7 @@ const {
   validateHowToPost,
   validateHowToPut,
   validateHowToId
-} = require("../middleware/middleware.js");
+} = require("../middleware/howToMiddleware.js");
 
 // GET "/api/how-tos"
 router.get("/", (req, res) => {
