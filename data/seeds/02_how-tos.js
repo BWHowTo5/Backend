@@ -1,7 +1,6 @@
 exports.seed = async function(knex) {
   await knex("how-tos").insert([
     {
-      id: 1,
       title: "Test How-To #1",
       summary:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tristique libero id rutrum mollis. Duis magna sem, sollicitudin vitae ante non, vestibulum hendrerit nibh.",
@@ -12,7 +11,6 @@ exports.seed = async function(knex) {
       user_id: 1
     },
     {
-      id: 2,
       title: "Test How-To #2",
       summary:
         "Nam interdum non diam ac dapibus. Donec rhoncus, nunc vitae pulvinar venenatis, diam mauris ultrices lacus, consequat accumsan metus purus ac leo.",
@@ -23,7 +21,6 @@ exports.seed = async function(knex) {
       user_id: 3
     },
     {
-      id: 3,
       title: "Test How-To #3",
       summary:
         "Nullam suscipit tristique dolor, sit amet tempus enim molestie scelerisque. Suspendisse potenti. Quisque molestie, nulla vitae sollicitudin dapibus, metus lorem vulputate velit, quis finibus augue leo vitae libero.",
@@ -34,7 +31,6 @@ exports.seed = async function(knex) {
       user_id: 2
     },
     {
-      id: 4,
       title: "Test How-To #4",
       summary:
         "Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse sed lectus vel ligula eleifend luctus. Integer ultricies tincidunt varius.",
