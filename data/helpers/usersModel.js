@@ -17,24 +17,24 @@ const findBy = (filter) => {
 const add = async (user) => {
   user.password = await bcrypt.hash(user.password, 13);
 
-  const [id] = await db("users").insert(user);
+  const [id] = await db("users")
+    .insert(user)
+    .returning("id");
 
-  return findBy(id);
+  return findBy({ id });
 };
 
 // UPDATE a user
 const update = async (filter, changes) => {
-  const user = findBy(filter);
-  const { oldPassword } = user;
-  const validatedPassword = bcrypt.compareSync(oldPassword, changes.password);
-
-  if (!validatedPassword) {
-    changes.password = await bcrypt.hash(changes.password, 13);
+  if (changes.password) {
+    changes.password = bcrypt.hashSync(changes.password, 13);
   }
 
   return db("users")
     .where(filter)
-    .update(changes);
+    .update(changes)
+    .then((count) => (count > 0 ? findBy(filter) : null))
+    .catch((err) => console.log(err));
 };
 
 // REMOVE a user
