@@ -14,9 +14,12 @@ const findBy = (filter) => {
 
 // POST new How-To
 const add = async (howTo) => {
-  const [id] = await db("how-tos").insert(howTo);
+  const id = await db("how-tos").insert(howTo);
+  
+  console.log(id)
 
-  return findBy({ id });
+//   return findBy({ id });
+  return -1;
 };
 
 // UPDATE a How-To
