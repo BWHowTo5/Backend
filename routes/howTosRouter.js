@@ -35,7 +35,7 @@ router.post("/", validateHowToPost, (req, res) => {
 });
 
 // PUT "/api/how-tos/:id"
-router.put("/:id", validateHowToPut, (req, res) => {
+router.put("/:id", validateHowToPut, validateHowToId, (req, res) => {
   HowTos.update({ id: req.params.id }, req.body)
     .then((howTo) => res.status(200).json(howTo))
     .catch((err) => {

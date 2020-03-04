@@ -14,7 +14,9 @@ const findBy = (filter) => {
 
 // POST new How-To
 const add = async (howTo) => {
-  const [id] = await db("how-tos").insert(howTo);
+  const [id] = await db("how-tos")
+    .insert(howTo)
+    .returning("id");
 
   return findBy({ id });
 };
