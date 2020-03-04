@@ -3,6 +3,8 @@ const server = express();
 
 const HowTosRouter = require("./routes/howTosRouter.js");
 
+server.use(express.json());
+
 server.get("/", (req, res) => {
   res.status(200).send(`
     <div>
