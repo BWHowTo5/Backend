@@ -1,4 +1,5 @@
 const db = require("../dbConfig.js");
+const HowTos = require("./howTosModel.js");
 
 // GET likes by filter
 const findBy = (filter) => {
@@ -9,16 +10,18 @@ const findBy = (filter) => {
 
 // POST new like
 const add = async (like) => {
-  const [id] = await db("likes").insert(like);
+  await db("likes").insert(like);
 
-  return findBy(id);
+  return HowTos.findBy({ id: like.how_to_id });
 };
 
 // REMOVE a like
-const remove = (filter) => {
-  return db("likes")
+const remove = async (filter) => {
+  await db("likes")
     .where(filter)
     .del();
+
+  return HowTos.findBy({ id: filter.how_to_id });
 };
 
 module.exports = { findBy, add, remove };

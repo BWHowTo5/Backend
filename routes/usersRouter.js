@@ -7,11 +7,12 @@ const {
   validateUserId,
   validateUserRegister,
   validateUserLogin,
-  validateUserPut
+  validateUserPut,
+  restricted
 } = require("../middleware/usersMiddleware.js");
 
 // GET "/api/users"
-router.get("/", (req, res) => {
+router.get("/", restricted, (req, res) => {
   Users.find()
     .then((users) => {
       const payload = users.map((user) => {
@@ -31,7 +32,7 @@ router.get("/", (req, res) => {
 });
 
 // GET "/api/users/:id"
-router.get("/:id", validateUserId, (req, res) => {
+router.get("/:id", restricted, validateUserId, (req, res) => {
   res.json(req.user);
 });
 
