@@ -66,7 +66,14 @@ router.post("/login", validateUserLogin, (req, res) => {
       if (user && validatedPassword) {
         req.session.user = user;
 
-        res.json({ message: `${user.username} has logged in successfully!` });
+        const payload = {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          creator: user.creator
+        };
+
+        res.json(payload);
       } else {
         res.status(401).json({ message: "Invalid credentials." });
       }
