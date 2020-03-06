@@ -82,25 +82,31 @@ router.post("/login", validateUserLogin, (req, res) => {
 });
 
 // PUT "/api/users/:id"
-router.put("/:id", validateUserPut, validateUserId, (req, res, next) => {
-  Users.update({ id: req.params.id }, req.body)
-    .then((user) => {
-      const payload = {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        creator: user.creator
-      };
-      res.status(200).json(payload);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
+router.put(
+  "/:id",
+  restricted,
+  alidateUserPut,
+  validateUserId,
+  (req, res, next) => {
+    Users.update({ id: req.params.id }, req.body)
+      .then((user) => {
+        const payload = {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          creator: user.creator
+        };
+        res.status(200).json(payload);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  }
+);
 
 // DELETE "/api/users/:id"
-router.delete("/:id", validateUserId, (req, res) => {
+router.delete("/:id", restricted, validateUserId, (req, res) => {
   Users.remove({ id: req.params.id })
     .then((count) =>
       res.status(200).json({ message: `${count} record was deleted.` })
