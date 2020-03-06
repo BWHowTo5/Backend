@@ -85,7 +85,7 @@ router.post("/login", validateUserLogin, (req, res) => {
 router.put(
   "/:id",
   restricted,
-  alidateUserPut,
+  validateUserPut,
   validateUserId,
   (req, res, next) => {
     Users.update({ id: req.params.id }, req.body)
