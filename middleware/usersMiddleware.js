@@ -28,7 +28,7 @@ const restricted = (req, res, next) => {
       }
     });
   } else {
-    res.status(400).json({ message: "No credentials prodived." });
+    res.status(400).json({ message: "No authorization token prodived." });
   }
 };
 
