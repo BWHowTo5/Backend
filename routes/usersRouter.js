@@ -8,7 +8,8 @@ const {
   validateUserRegister,
   validateUserLogin,
   validateUserPut,
-  restricted
+  restricted,
+  generateToken
 } = require("../middleware/usersMiddleware.js");
 
 // GET "/api/users"
@@ -40,14 +41,14 @@ router.get("/:id", restricted, validateUserId, (req, res) => {
 router.post("/register", validateUserRegister, (req, res) => {
   Users.add(req.body)
     .then((user) => {
+      const token = generateToken(user);
       const payload = {
         id: user.id,
         username: user.username,
         email: user.email,
         creator: user.creator
       };
-      req.session.user = user;
-      res.status(201).json(payload);
+      res.status(201).json({ user: payload, authToken: token });
     })
     .catch((err) => {
       console.log(err);
@@ -64,16 +65,12 @@ router.post("/login", validateUserLogin, (req, res) => {
       const validatedPassword = bcrypt.compareSync(password, user.password);
 
       if (user && validatedPassword) {
-        req.session.user = user;
+        const token = generateToken(user);
 
-        const payload = {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          creator: user.creator
-        };
-
-        res.json(payload);
+        res.json({
+          message: `${user.username} has successfully logged in.`,
+          authToken: token
+        });
       } else {
         res.status(401).json({ message: "Invalid credentials." });
       }

@@ -1,12 +1,34 @@
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const Users = require("../data/helpers/usersModel.js");
 
+const generateToken = (user) => {
+  const payload = {
+    userId: user.id,
+    username: user.username
+  };
+
+  const options = {
+    expiresIn: "21h"
+  };
+
+  return jwt.sign(payload, process.env.SECRET, options);
+};
+
 const restricted = (req, res, next) => {
-  if (!req.session || !req.session.user) {
-    res
-      .status(401)
-      .json({ message: "You are not authorized to complete this action." });
+  const token = req.headers.authorization;
+
+  if (token) {
+    jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
+      if (err) {
+        res.status(403).json({ message: "You are not authorized." });
+      } else {
+        req.decodedToken = decodedToken;
+        next();
+      }
+    });
   } else {
-    next();
+    res.status(400).json({ message: "No credentials prodived." });
   }
 };
 
@@ -83,5 +105,6 @@ module.exports = {
   validateUserId,
   validateUserRegister,
   validateUserLogin,
-  validateUserPut
+  validateUserPut,
+  generateToken
 };

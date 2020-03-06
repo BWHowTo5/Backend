@@ -1,8 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const session = require("express-session");
-const KnexSessionStore = require("connect-session-knex")(session);
 
 const dbConfig = require("./data/dbConfig.js");
 const HowTosRouter = require("./routes/howTosRouter.js");
@@ -16,21 +14,6 @@ const server = express();
 
 server.use(cors());
 server.use(express.json());
-
-server.use(
-  session({
-    resave: false,
-    saveUninitialized: false,
-    secret: process.env.SECRET,
-    cookie: {
-      httpOnly: true
-    },
-    store: new KnexSessionStore({
-      knex: dbConfig,
-      createtable: true
-    })
-  })
-);
 
 server.get("/", (req, res) => {
   res.status(200).send(`
