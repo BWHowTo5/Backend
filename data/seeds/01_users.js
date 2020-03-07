@@ -21,7 +21,7 @@ exports.seed = async function(knex) {
     {
       username: "cassette-master",
       email: "ejeeeect@decepticons.com",
-      password: "autobotsinferior",
+      password: "$2a$13$rkOzbTg23XtsV8iS8yTScuR8fDKujAPgpSnfVkFfLM57C8x5.dm9S",
       creator: false
     }
   ]);
