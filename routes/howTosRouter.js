@@ -37,7 +37,7 @@ router.post("/", validateHowToPost, (req, res) => {
 // PUT "/api/how-tos/:id"
 router.put("/:id", validateHowToPut, validateHowToId, (req, res) => {
   HowTos.update({ id: req.params.id }, req.body)
-    .then((howTo) => res.status(200).json(howTo))
+    .then((howTo) => res.json(howTo))
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
@@ -47,9 +47,7 @@ router.put("/:id", validateHowToPut, validateHowToId, (req, res) => {
 // DELETE "/api/how-tos/:id"
 router.delete("/:id", validateHowToId, (req, res) => {
   HowTos.remove({ id: req.params.id })
-    .then((count) =>
-      res.status(200).json({ message: `${count} record was deleted.` })
-    )
+    .then((count) => res.json({ message: `${count} record was deleted.` }))
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);

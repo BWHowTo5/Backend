@@ -41,7 +41,7 @@ router.delete(
     Dislikes.remove(req.body)
       .then((howTo) => {
         HowTos.update({ id: howTo.id }, { dislikes: howTo.dislikes - 1 })
-          .then((updatedHowTo) => res.status(201).json(updatedHowTo))
+          .then((updatedHowTo) => res.json(updatedHowTo))
           .catch((err) => {
             console.log(err);
             res.status(500).json(err);

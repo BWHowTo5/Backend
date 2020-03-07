@@ -33,7 +33,9 @@ exports.up = async function(knex) {
       .notNullable()
       .unsigned()
       .references("id")
-      .inTable("users");
+      .inTable("users")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
   });
 
   // LIKES
@@ -43,13 +45,17 @@ exports.up = async function(knex) {
       .notNullable()
       .unsigned()
       .references("id")
-      .inTable("users");
+      .inTable("users")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
     tbl
       .integer("how_to_id")
       .notNullable()
       .unsigned()
       .references("id")
-      .inTable("how-tos");
+      .inTable("how-tos")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
     tbl.primary(["user_id", "how_to_id"]);
   });
 
@@ -60,13 +66,17 @@ exports.up = async function(knex) {
       .notNullable()
       .unsigned()
       .references("id")
-      .inTable("users");
+      .inTable("users")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
     tbl
       .integer("how_to_id")
       .notNullable()
       .unsigned()
       .references("id")
-      .inTable("how-tos");
+      .inTable("how-tos")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
     tbl.primary(["user_id", "how_to_id"]);
   });
 };

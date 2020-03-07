@@ -96,7 +96,7 @@ router.put(
           email: user.email,
           creator: user.creator
         };
-        res.status(200).json(payload);
+        res.json(payload);
       })
       .catch((err) => {
         console.log(err);
@@ -108,9 +108,7 @@ router.put(
 // DELETE "/api/users/:id"
 router.delete("/:id", restricted, validateUserId, (req, res) => {
   Users.remove({ id: req.params.id })
-    .then((count) =>
-      res.status(200).json({ message: `${count} record was deleted.` })
-    )
+    .then((count) => res.json({ message: `${count} record was deleted.` }))
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
