@@ -1,6 +1,6 @@
 exports.seed = async function(knex) {
-  await knex("dislikes").truncate();
-  await knex("likes").truncate();
-  await knex("how-tos").truncate();
-  await knex("users").truncate();
+  await knex("dislikes").del();
+  await knex("likes").del();
+  await knex("how-tos").del();
+  await knex("users").del();
 };
