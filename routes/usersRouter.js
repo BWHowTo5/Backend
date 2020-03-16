@@ -16,15 +16,21 @@ const {
 router.get("/", restricted, (req, res) => {
   Users.find()
     .then((users) => {
-      const payload = users.map((user) => {
-        return {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          creator: user.creator
-        };
-      });
-      res.json(payload);
+      if (!users.length) {
+        res
+          .status(404)
+          .json({ message: "No users were found in the database." });
+      } else {
+        const payload = users.map((user) => {
+          return {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            creator: user.creator
+          };
+        });
+        res.json(payload);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -66,9 +72,15 @@ router.post("/login", validateUserLogin, (req, res) => {
 
       if (user && validatedPassword) {
         const token = generateToken(user);
+        const payload = {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          creator: user.creator
+        };
 
         res.json({
-          message: `${user.username} has successfully logged in.`,
+          ...payload,
           authToken: token
         });
       } else {
