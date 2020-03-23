@@ -12,7 +12,15 @@ const {
 // GET "/api/how-tos"
 router.get("/", (req, res) => {
   HowTos.find()
-    .then((howTos) => res.json(howTos))
+    .then((howTos) => {
+      if (!howTos.length) {
+        res
+          .status(404)
+          .json({ message: "No how-tos were found in the database." });
+      } else {
+        res.json(howTos);
+      }
+    })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
