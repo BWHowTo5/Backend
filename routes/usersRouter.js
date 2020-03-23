@@ -80,7 +80,7 @@ router.post("/login", validateUserLogin, (req, res) => {
         };
 
         res.json({
-          ...payload,
+          user: payload,
           authToken: token
         });
       } else {

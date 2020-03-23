@@ -70,7 +70,7 @@ const validateUserRegister = (req, res, next) => {
 
 const validateUserLogin = (req, res, next) => {
   if (!req.body.email || !req.body.password) {
-    res.status(400).json({ message: "Missing required username or password." });
+    res.status(400).json({ message: "Missing required email or password." });
   } else {
     next();
   }
